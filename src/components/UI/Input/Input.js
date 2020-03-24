@@ -1,20 +1,42 @@
+//@flow
+
 import React, { Component } from "react";
+import _ from "lodash";
 
 import classes from "./Input.css";
+import classnames from "classnames";
 
-class Input extends Component {
-	state = { value: null, error: "" };
-	onChange = event => {
+type Props = {
+	validate: {
+		required?: boolean
+	},
+	id: string,
+	type: string,
+	onChange: Function
+};
+
+type State = {
+	value: ?string,
+	touched: boolean
+};
+
+class Input extends Component<Props, State> {
+	state: State = { value: null, touched: false };
+	onChange = (event: SyntheticEvent<HTMLInputElement>) => {
 		const value = event.target.value;
-		this.setState({ value, error: "" });
+		this.setState({ value, touched: true });
 		return this.props.onChange(value);
 	};
+
 	render() {
-		const { id, type, value, required } = this.props;
+		const { id, type, validate } = this.props;
+		const { value } = this.state;
+		const isError = validate.required && _.isEmpty(value);
 		return (
 			<input
-				required={required}
-				className={classes.Input}
+				className={classnames(classes.Input, {
+					[classes.Error]: isError
+				})}
 				id={id}
 				type={type}
 				value={value}

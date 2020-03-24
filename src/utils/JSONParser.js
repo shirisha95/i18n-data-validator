@@ -1,5 +1,6 @@
 //@flow
-import type { JSONParserResponse } from "../models/flow/JSONParserResponse";
+
+import { JSONParserResponse } from "../models/flow/JSONParserResponse";
 
 class JSONParser {
 	static parseJSONData = (string: String): JSONParserResponse => {

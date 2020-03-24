@@ -1,4 +1,4 @@
-import * as actionTypes from "./actionTypes";
+import { VALIDATE_TSTRING } from "./actionTypes";
 
 export const validateTString = (
 	key: string,
@@ -6,7 +6,7 @@ export const validateTString = (
 	translatedValue: string
 ) => {
 	return {
-		type: actionTypes.VALIDATE_TSTRING,
+		type: VALIDATE_TSTRING,
 		key,
 		baseValue,
 		translatedValue

@@ -1,8 +1,16 @@
-import React from "react";
+//@flow
+
+import React, { type Node } from "react";
 
 import classes from "./Button.css";
 
-const Button = props => (
+type Props = {
+	disabled?: Boolean,
+	onClick: Function,
+	children: Node
+};
+
+const Button = (props: Props) => (
 	<button
 		disabled={props.disabled}
 		className={classes.Button}

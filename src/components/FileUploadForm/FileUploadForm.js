@@ -1,35 +1,55 @@
+//@flow
+
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import DropZone from "../DropZone/DropZone";
 import Button from "../UI/Button/Button";
 import classes from "./FileUploadForm.css";
 import JSONParser from "../../utils/JSONParser";
+import { validateTStrings } from "../../store/actions/TFileValidator";
 
-class FileUploadForm extends Component {
+type Props = {
+	validateTStrings: Function
+};
+
+type State = {
+	baseStringsJSON: Object,
+	translatedStringsJSON: Object
+};
+
+class FileUploadForm extends Component<Props, State> {
+	state: State = {
+		baseStringsJSON: null,
+		translatedStringsJSON: null
+	};
+
+	validateTStrings = () => {
+		const { translatedStringsJSON, baseStringsJSON } = this.state;
+		this.props.validateTStrings(translatedStringsJSON, baseStringsJSON);
+	};
+
 	onBaseFileDrop = (files: Array<File>) => {
 		let reader = new FileReader();
 		reader.readAsText(files[0]);
-		const { setBaseStringsJSON } = this.props;
-		reader.onload = function() {
+		reader.onload = () => {
 			var { result } = reader;
 			var parserResponse = JSONParser.parseJSONData(result);
-			setBaseStringsJSON(parserResponse.data);
+			this.setState({ baseStringsJSON: parserResponse.data });
 		};
 	};
 
 	onTranslatedFileDrop = (files: Array<File>) => {
 		let reader = new FileReader();
 		reader.readAsText(files[0]);
-		const { setTranslatedStringsJSON } = this.props;
-		reader.onload = function() {
+		reader.onload = () => {
 			var { result } = reader;
 			var parserResponse = JSONParser.parseJSONData(result);
-			setTranslatedStringsJSON(parserResponse.data);
+			this.setState({ translatedStringsJSON: parserResponse.data });
 		};
 	};
 
 	render() {
-		const { validateTStrings } = this.props;
 		return (
 			<div className={classes.FileUploadForm}>
 				<div className={classes.FilesContainer}>
@@ -51,11 +71,13 @@ class FileUploadForm extends Component {
 					</div>
 				</div>
 				<div className={classes.ValidateButton}>
-					<Button onClick={validateTStrings}> Validate </Button>
+					<Button onClick={this.validateTStrings}> Validate </Button>
 				</div>
 			</div>
 		);
 	}
 }
 
-export default FileUploadForm;
+const mapDispatchToProps = { validateTStrings };
+
+export default connect(null, mapDispatchToProps)(FileUploadForm);

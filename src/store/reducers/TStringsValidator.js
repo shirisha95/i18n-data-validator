@@ -1,15 +1,11 @@
-import * as actionTypes from "../actions/actionTypes";
+import { VALIDATE_TSTRING } from "../actions/actionTypes";
 import ValidatorUtility from "../../utils/ValidatorUtility";
 
 const initialState = {
 	response: null
 };
 
-function validateTString(
-	key: string,
-	baseValue: string,
-	translatedValue: string
-) {
+function validateTString(key, baseValue, translatedValue) {
 	const response = ValidatorUtility.validateTString(
 		key,
 		baseValue,
@@ -23,7 +19,7 @@ function validateTString(
 
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
-		case actionTypes.VALIDATE_TSTRING:
+		case VALIDATE_TSTRING:
 			const { key, baseValue, translatedValue } = action;
 			return validateTString(key, baseValue, translatedValue);
 		default:

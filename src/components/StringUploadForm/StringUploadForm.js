@@ -1,5 +1,8 @@
+//@flow
+
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import _ from "lodash";
 
 import Button from "../UI/Button/Button";
 import Input from "../UI/Input/Input";
@@ -21,7 +24,10 @@ class StringUploadForm extends Component<Props, State> {
 	state: State = {
 		tKey: "",
 		translatedValue: "",
-		baseValue: ""
+		baseValue: "",
+		validate: {
+			required: false
+		}
 	};
 
 	onTKeyChange = (tKey: string) => {
@@ -38,10 +44,21 @@ class StringUploadForm extends Component<Props, State> {
 
 	validateTString = () => {
 		const { tKey, baseValue, translatedValue } = this.state;
+
+		if (
+			_.isEmpty(tKey) ||
+			_.isEmpty(baseValue) ||
+			_.isEmpty(translatedValue)
+		) {
+			const validate = { required: true };
+			this.setState({ validate });
+			return;
+		}
 		this.props.validateTString(tKey, baseValue, translatedValue);
 	};
 
 	render() {
+		const { validate } = this.state;
 		return (
 			<div className={classes.StringUploadForm}>
 				<Label value="Enter Key" />
@@ -49,7 +66,7 @@ class StringUploadForm extends Component<Props, State> {
 					id="tKey"
 					type="text"
 					onChange={this.onTKeyChange}
-					required
+					validate={validate}
 				/>
 				<Label value="Enter Translated Value" />
 				<Input
@@ -57,6 +74,7 @@ class StringUploadForm extends Component<Props, State> {
 					type="text"
 					onChange={this.onTranslatedValueChange}
 					required
+					validate={validate}
 				/>
 				<Label value="Enter Base Value" />
 				<Input
@@ -64,6 +82,7 @@ class StringUploadForm extends Component<Props, State> {
 					type="text"
 					onChange={this.onBaseValueChange}
 					required
+					validate={validate}
 				/>
 				<div className={classes.ValidateButton}>
 					<Button onClick={this.validateTString}> Validate </Button>

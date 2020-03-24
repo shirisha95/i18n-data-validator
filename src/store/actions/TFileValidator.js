@@ -1,11 +1,11 @@
-import * as actionTypes from "./actionTypes";
+import { VALIDATE_TSTRINGS } from "./actionTypes";
 
 export const validateTStrings = (
 	translatedStringsJSON: Object,
 	baseStringsJSON: Object
 ) => {
 	return {
-		type: actionTypes.VALIDATE_TSTRINGS,
+		type: VALIDATE_TSTRINGS,
 		translatedStringsJSON,
 		baseStringsJSON
 	};

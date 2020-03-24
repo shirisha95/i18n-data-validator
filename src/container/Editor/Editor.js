@@ -1,7 +1,10 @@
+//@flow
+
 import * as monaco from "@peterschussheim/monaco-editor";
 import React, { Component } from "react";
 
-import Marker from "../../models/flow/Marker";
+import { Marker } from "../../models/flow/Marker";
+import { List } from "immutable";
 import classes from "./Editor.css";
 import classnames from "classnames";
 
@@ -23,22 +26,25 @@ const defaultOptions = {
 
 type Props = {
 	value: String,
-	readOnly: boolean,
-	markers: List<Marker>
+	readOnly?: boolean,
+	markers?: List<Marker>
 };
 
 class Editor extends Component<Props> {
 	componentDidMount() {
 		const { value, readOnly, markers } = this.props;
-
 		const options = { ...defaultOptions, value, readOnly };
-		const editor = monaco.editor.create(this.ref, options);
-		monaco.editor.setModelMarkers(editor.getModel(), "test", markers);
-		return editor;
+		this.editor = monaco.editor.create(this.editorRef, options);
+		monaco.editor.setModelMarkers(this._editor.getModel(), "test", markers);
+		return this.editor;
+	}
+
+	componentWillUnmount() {
+		this.editor && this.editor.dispose();
 	}
 
 	setEditorRef = ref => {
-		this.ref = ref;
+		this.editorRef = ref;
 	};
 
 	render() {

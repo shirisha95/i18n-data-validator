@@ -13,3 +13,7 @@
 .Input:hover {
 	background-color: #f4f8fe;
 }
+
+.Error {
+	border: 1px solid red;
+}

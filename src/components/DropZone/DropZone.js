@@ -1,3 +1,5 @@
+//@flow
+
 import classnames from "classnames";
 import React, { Component } from "react";
 import ReactDropzone from "react-dropzone";
@@ -6,12 +8,23 @@ import FileCheck from "../../icons/file-check.png";
 import FileUpload from "../../icons/file-upload.png";
 import classes from "./DropZone.css";
 
-class DropZone extends Component {
-	state = {
+type State = {
+	files: Array<File>
+};
+
+type Props = {
+	multiple: boolean,
+	text: string,
+	accept: string,
+	onDrop: Function
+};
+
+class DropZone extends Component<Props, State> {
+	state: State = {
 		files: []
 	};
 
-	onDrop = files => {
+	onDrop = (files: Array<File>) => {
 		this.setState({
 			files: files
 		});

@@ -1,3 +1,5 @@
+//@flow
+
 import React from "react";
 
 import Editor from "../../container/Editor/Editor";
@@ -7,7 +9,8 @@ import { ValidateTResponse } from "../../models/flow/ValidateTResponse";
 type Props = {
 	response: ValidateTResponse
 };
-const TErrors = (props: Props) => {
+
+const TErrorsRow = (props: Props) => {
 	const response = props.response.toJS();
 	const { baseValue, key, translatedValue, markers } = response;
 	return (
@@ -21,4 +24,4 @@ const TErrors = (props: Props) => {
 	);
 };
 
-export default TErrors;
+export default React.memo(TErrorsRow);

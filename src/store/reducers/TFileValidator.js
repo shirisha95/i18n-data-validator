@@ -1,24 +1,21 @@
-import * as actionTypes from "../actions/actionTypes";
+import { VALIDATE_TSTRINGS } from "../actions/actionTypes";
 import ValidatorUtility from "../../utils/ValidatorUtility";
 
 const initialState = {
-	tErrors: null
+	responses: null
 };
 
-function validateTStrings(
-	translatedStringsJSON: Object,
-	baseStringsJSON: Object
-) {
-	const tErrors = ValidatorUtility.validateTStrings(
+function validateTStrings(translatedStringsJSON, baseStringsJSON) {
+	const responses = ValidatorUtility.validateTStrings(
 		translatedStringsJSON,
 		baseStringsJSON
 	);
-	return { tErrors };
+	return { responses };
 }
 
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
-		case actionTypes.VALIDATE_TSTRINGS:
+		case VALIDATE_TSTRINGS:
 			const { translatedStringsJSON, baseStringsJSON } = action;
 			return validateTStrings(translatedStringsJSON, baseStringsJSON);
 		default:
