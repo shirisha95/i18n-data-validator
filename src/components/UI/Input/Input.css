@@ -1,0 +1,15 @@
+.Input {
+	width: 95%;
+	height: 30px;
+	position: relative;
+	background-color: #fff;
+	outline: none;
+	border: 1px solid #dddf;
+	margin: 10px;
+	padding: 5px;
+	font-size: 12px;
+}
+
+.Input:hover {
+	background-color: #f4f8fe;
+}

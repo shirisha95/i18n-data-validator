@@ -1,0 +1,23 @@
+.TErrorsRow {
+	width: 100%;
+	display: flex;
+}
+
+.Key {
+	display: inline-block;
+	border: 1px solid #dddf;
+	width: 30%;
+	padding: 6px;
+}
+
+.TErrorEditor {
+	width: 70%;
+	text-align: center;
+	display: table;
+	border-left: 10px solid #1f96f3;
+	float: right;
+}
+
+.TFullWidthEditor {
+	width: 100%;
+}

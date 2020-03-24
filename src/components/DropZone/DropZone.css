@@ -1,0 +1,62 @@
+.DropZoneContainer {
+	width: 100%;
+}
+
+.FileDropzone {
+	height: 180px;
+	background-color: #fff;
+	border-radius: 0px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	font-size: 16px;
+	border: 2px dashed #dddf;
+	cursor: pointer;
+}
+
+.FileDropzone:hover {
+	background-color: #f4f8fe;
+}
+
+.FileIcon {
+	height: 30px;
+	margin: 20px;
+}
+
+.FileInput {
+	display: none;
+}
+
+.DropContainer {
+	align-items: flex-start;
+}
+
+.DropBackground {
+	height: auto;
+	width: auto;
+}
+
+.FilesDisplayContainer {
+	display: grid;
+	padding-left: 10px;
+	margin-block-start: 0px;
+	margin-block-end: 0px;
+}
+
+.FileName,
+.FileUploadIcon {
+	display: inline;
+	vertical-align: middle;
+	align-self: center;
+}
+
+.FileUploadIcon {
+	margin: 10px;
+	height: 16px;
+}
+
+.FileDisplayContainer {
+	width: 100%;
+	list-style: none;
+}
