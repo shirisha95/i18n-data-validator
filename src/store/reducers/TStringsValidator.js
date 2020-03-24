@@ -9,10 +9,7 @@ function validateTString(key, baseValue, translatedValue) {
 	const response = ValidatorUtility.validateTString(
 		key,
 		baseValue,
-		translatedValue,
-		{
-			key: baseValue
-		}
+		translatedValue
 	);
 	return { response };
 }

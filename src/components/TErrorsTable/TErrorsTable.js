@@ -8,16 +8,20 @@ import TErrorsRow from "../TErrorsRow/TErrorsRow";
 import { ValidateTResponse } from "../../models/flow/ValidateTResponse";
 
 type Props = {
-	responses: List<ValidateTResponse>
+	responses: List<ValidateTResponse>,
+	onTranslatedValueChange: Function
 };
 
 const TErrorsTable = (props: Props) => {
-	const { responses } = props;
+	const { responses, onTranslatedValueChange } = props;
 	const Row = ({ data, index, style }) => {
 		const response = data[index];
 		return (
 			<div key={index} style={style}>
-				<TErrorsRow response={response} />
+				<TErrorsRow
+					response={response}
+					onTranslatedValueChange={onTranslatedValueChange}
+				/>
 			</div>
 		);
 	};

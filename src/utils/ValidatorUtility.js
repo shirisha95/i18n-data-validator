@@ -15,15 +15,16 @@ class ValidatorUtils {
 	static validateTString = (
 		key: string,
 		baseValue: string,
-		translatedValue: string,
-		i18nextStrings: Object
+		translatedValue: string
 	): ValidateTResponse => {
 		const tErrors = validate(
 			translatedValue,
 			{
 				key: key,
 				value: translatedValue,
-				baseLngStrings: new I18nextStrings(i18nextStrings)
+				baseLngStrings: new I18nextStrings({
+					key: baseValue
+				})
 			},
 			[rules["require-ns-in-nesting-key"]]
 		);
@@ -51,7 +52,7 @@ class ValidatorUtils {
 			const response = this.validateTString(
 				key,
 				baseValue,
-				translatedValue,
+				"tester $t(tester)",
 				baseStrings
 			);
 			if (response.markers.size !== 0) {

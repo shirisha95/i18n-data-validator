@@ -25,7 +25,8 @@ const defaultOptions = {
 };
 
 type Props = {
-	value: String,
+	tKey: string,
+	value: string,
 	readOnly?: boolean,
 	markers?: List<Marker>,
 	onValueChange?: Function
@@ -33,7 +34,7 @@ type Props = {
 
 class Editor extends Component<Props> {
 	componentDidMount() {
-		const { value, readOnly, markers, onValueChange } = this.props;
+		const { tKey, value, readOnly, markers, onValueChange } = this.props;
 		const options = { ...defaultOptions, value, readOnly };
 		this.editor = monaco.editor.create(this.editorRef, options);
 		this.setModelMarkers(markers);
@@ -41,7 +42,7 @@ class Editor extends Component<Props> {
 		const model = this.editor.getModel();
 		model.onDidChangeContent(_ => {
 			const updatedValue = this.editor.getValue();
-			onValueChange(updatedValue);
+			onValueChange(tKey, updatedValue);
 		});
 		return this.editor;
 	}
