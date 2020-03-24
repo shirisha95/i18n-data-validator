@@ -1,12 +1,12 @@
 //@flow
 
 import * as monaco from "@peterschussheim/monaco-editor";
+import classnames from "classnames";
+import { List } from "immutable";
 import React, { Component } from "react";
 
 import { Marker } from "../../models/flow/Marker";
-import { List } from "immutable";
 import classes from "./Editor.css";
-import classnames from "classnames";
 
 const defaultOptions = {
 	language: "plaintext",
@@ -55,10 +55,6 @@ class Editor extends Component<Props> {
 	componentDidUpdate() {
 		const { markers } = this.props;
 		this.setModelMarkers(markers);
-	}
-
-	componentWillUnmount() {
-		this.editor && this.editor.dispose();
 	}
 
 	setEditorRef = ref => {

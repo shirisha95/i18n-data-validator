@@ -1,9 +1,9 @@
 //@flow
 
 import {
-	validate,
+	I18nextStrings,
 	rules,
-	I18nextStrings
+	validate
 } from "@locus-taxy/i18next-string-validation";
 import { forEachString } from "@locus-taxy/i18next-strings-utils";
 import { List } from "immutable";
@@ -46,17 +46,17 @@ class ValidatorUtils {
 			flattenedKeyTStrings[key] = value;
 		});
 
-		const responses = [];
+		let responses = List([]);
 		forEachString(baseStrings, (key, baseValue) => {
 			const translatedValue = flattenedKeyTStrings[key];
 			const response = this.validateTString(
 				key,
 				baseValue,
-				"tester $t(tester)",
+				translatedValue,
 				baseStrings
 			);
 			if (response.markers.size !== 0) {
-				responses.push(response);
+				responses = responses.push(response);
 			}
 		});
 		return responses;

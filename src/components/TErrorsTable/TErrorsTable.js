@@ -1,11 +1,11 @@
+import { List } from "immutable";
 //@flow
 
 import React from "react";
 import { FixedSizeList } from "react-window";
-import { List } from "immutable";
 
-import TErrorsRow from "../TErrorsRow/TErrorsRow";
 import { ValidateTResponse } from "../../models/flow/ValidateTResponse";
+import TErrorsRow from "../TErrorsRow/TErrorsRow";
 
 type Props = {
 	responses: List<ValidateTResponse>,
@@ -15,7 +15,7 @@ type Props = {
 const TErrorsTable = (props: Props) => {
 	const { responses, onTranslatedValueChange } = props;
 	const Row = ({ data, index, style }) => {
-		const response = data[index];
+		const response = data.get(index);
 		return (
 			<div key={index} style={style}>
 				<TErrorsRow

@@ -1,5 +1,5 @@
-import { VALIDATE_TSTRINGS, UPDATE_MARKERS } from "../actions/actionTypes";
 import ValidatorUtility from "../../utils/ValidatorUtility";
+import { UPDATE_MARKERS, VALIDATE_TSTRINGS } from "../actions/actionTypes";
 
 const initialState = {
 	responses: null
@@ -21,7 +21,8 @@ function updateMarkers(responses, key, updatedValue) {
 		baseValue,
 		updatedValue
 	);
-	return responses.update(index, _ => updatedResponse);
+	const updatedResponses = responses.update(index, _ => updatedResponse);
+	return { responses: updatedResponses };
 }
 
 const reducer = (state = initialState, action) => {
