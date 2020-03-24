@@ -1,8 +1,5 @@
 //@flow
-type JSONParserResponse = {
-	error?: string,
-	data?: Object
-};
+import type { JSONParserResponse } from "../models/flow/JSONParserResponse";
 
 class JSONParser {
 	static parseJSONData = (string: String): JSONParserResponse => {
@@ -15,11 +12,11 @@ class JSONParser {
 		try {
 			const data = JSON.parse(jsonString);
 			if (data && typeof data === "object") {
-				return { data };
+				return JSONParserResponse.fromJS({ data });
 			}
-			return { error: "Empty JSON" };
+			return JSONParserResponse.fromJS({ error: "Empty JSON" });
 		} catch (ex) {
-			return { error: ex.message };
+			return JSONParserResponse.fromJS({ error: ex.message });
 		}
 	};
 }

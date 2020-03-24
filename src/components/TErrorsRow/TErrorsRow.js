@@ -1,22 +1,20 @@
 import React from "react";
 
-import classnames from "classnames";
 import Editor from "../../container/Editor/Editor";
 import classes from "./TErrorsRow.css";
+import { ValidateTResponse } from "../../models/flow/ValidateTResponse";
 
-const TErrors = props => {
-	const { baseValue, keyValue, translatedValue, errors } = props;
-	const markers = errors.errors;
+type Props = {
+	response: ValidateTResponse
+};
+const TErrors = (props: Props) => {
+	const response = props.response.toJS();
+	const { baseValue, key, translatedValue, markers } = response;
 	return (
 		<div className={classes.TErrorsRow}>
-			{keyValue && <div className={classes.Key}>{keyValue}</div>}
-			<div
-				className={classnames(
-					keyValue ? "" : classes.TFullWidthEditor,
-					classes.TErrorEditor
-				)}
-			>
-				<Editor value={translatedValue} errors={markers} />
+			{key && <div className={classes.Key}>{key}</div>}
+			<div className={classes.TErrorsEditor}>
+				<Editor value={translatedValue} markers={markers} />
 				<Editor value={baseValue} readOnly />
 			</div>
 		</div>

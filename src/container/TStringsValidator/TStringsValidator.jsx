@@ -1,70 +1,35 @@
 //@flow
-import React, { PureComponent } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { createSelector } from "reselect";
 
+import { ValidateTResponse } from "../../models/flow/ValidateTResponse";
 import StringUploadForm from "../../components/StringUploadForm/StringUploadForm";
 import TErrors from "../../components/TErrorsRow/TErrorsRow";
 import Header from "../../components/UI/Header/Header";
-import { validateTString } from "../../store/actions/TStringsValidator";
 
-type Props = { validateTString: Function };
-type State = {
-	translatedValue: String,
-	baseValue: String
+type Props = { response: ValidateTResponse };
+
+const TStringsValidator = (props: Props) => {
+	const { response } = props;
+	//ToDo: Add NoErrors Div
+	return (
+		<div>
+			<Header title="Translations Validator" />
+			<br />
+			<StringUploadForm />
+			<br />
+			{response ? <TErrors response={response} /> : ""}
+		</div>
+	);
 };
 
-class TStringsValidator extends PureComponent<Props, State> {
-	props: Props;
-	state: State = {
-		translatedValue: null,
-		baseValue: null
-	};
+const getResponse = state => state.tStringReducer.response;
+const responseSelector = createSelector(getResponse, response => response);
 
-	onTranslatedValueChange = (translatedValue: String) => {
-		this.setState({ translatedValue });
-	};
+const mapStateToProps = state => {
+	console.log(state);
+	return { response: responseSelector(state) };
+};
 
-	onBaseValueChange = (baseValue: String) => {
-		this.setState({ baseValue });
-	};
-
-	validateTString = () => {
-		const { translatedValue, baseValue } = this.state;
-		this.props.validateTString(translatedValue, baseValue);
-	};
-
-	render() {
-		const { translatedValue, baseValue } = this.state;
-		const { errors } = this.props;
-		return (
-			<div>
-				<Header title="Translations Validator" />
-				<br />
-				<StringUploadForm
-					onBaseValueChange={this.onBaseValueChange}
-					onTranslatedValueChange={this.onTranslatedValueChange}
-					validateTString={this.validateTString}
-				/>
-				<br />
-				{errors && (
-					<TErrors
-						translatedValue={translatedValue}
-						baseValue={baseValue}
-						errors={errors.errors}
-					/>
-				)}
-			</div>
-		);
-	}
-}
-const getErrors = state => state.tStringReducer.tError;
-const errorsSelector = createSelector(getErrors, errors => errors);
-
-const mapStateToProps = state => ({
-	errors: errorsSelector(state)
-});
-
-const mapDispatchToProps = { validateTString };
-
-export default connect(mapStateToProps, mapDispatchToProps)(TStringsValidator);
+export default connect(mapStateToProps, null)(TStringsValidator);

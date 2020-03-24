@@ -5,66 +5,72 @@ import {
 } from "@locus-taxy/i18next-string-validation";
 import { forEachString } from "@locus-taxy/i18next-strings-utils";
 
-type Marker = {
-	startLineNumber: int,
-	endLineNumber: int,
-	startColumn: int,
-	endColumn: int,
-	message: string,
-	severity: int,
-	source: String
-};
+import { Marker } from "../models/flow/Marker";
+import { ValidateTResponse } from "../models/flow/ValidateTResponse";
 
 class ValidatorUtils {
 	static validateTString = (
-		translatedValue: String,
-		baseValue: String,
-		key: String
-	) => {
-		const string = "tester $t(tester)";
+		key: string,
+		baseValue: string,
+		translatedValue: string,
+		i18nextStrings: Object
+	): ValidateTResponse => {
 		const tErrors = validate(
-			string,
+			translatedValue,
 			{
-				key: translatedValue,
-				value: baseValue,
-				baseLngStrings: new I18nextStrings({})
+				key: key,
+				value: translatedValue,
+				baseLngStrings: new I18nextStrings(i18nextStrings)
 			},
 			[rules["require-ns-in-nesting-key"]]
 		);
 		const markers = this.formErrorMarkers(tErrors);
-		return { key, baseValue, translatedValue, errors: markers };
+		console.log(markers);
+		return ValidateTResponse.fromJS({
+			key,
+			baseValue,
+			translatedValue,
+			markers
+		});
 	};
 
 	static validateTStrings = (
-		translatedStrings: Object,
-		baseStrings: Object
+		baseStrings: Object,
+		translatedStrings: Object
 	) => {
 		const flattenedKeyTStrings = {};
 		forEachString(translatedStrings, (key, value) => {
 			flattenedKeyTStrings[key] = value;
 		});
 
-		const errors = [];
+		const responses: List<ValidateTResponse> = [];
 		forEachString(baseStrings, (key, baseValue) => {
 			const translatedValue = flattenedKeyTStrings[key];
-			const err = this.validateTString(translatedValue, baseValue, key);
-			if (err.errors.length !== 0) {
-				errors.push(err);
+			const response = this.validateTString(
+				key,
+				baseValue,
+				translatedValue,
+				baseStrings
+			);
+			if (response.markers().size !== 0) {
+				responses.push(response);
 			}
 		});
-		return errors;
+		return responses;
 	};
 
 	static formErrorMarkers(tErrors: List<TError>): List<Marker> {
-		return tErrors.map(tError => ({
-			startLineNumber: tError.loc.start.line,
-			endLineNumber: tError.loc.end.line,
-			startColumn: tError.loc.start.column,
-			endColumn: tError.loc.end.column,
-			message: tError.message,
-			severity: 3,
-			source: "i18n-validator"
-		}));
+		return tErrors.map(tError =>
+			Marker.fromJS({
+				startLineNumber: tError.loc.start.line,
+				endLineNumber: tError.loc.end.line,
+				startColumn: tError.loc.start.column,
+				endColumn: tError.loc.end.column,
+				message: tError.message,
+				severity: 3,
+				source: "i18n-validator"
+			})
+		);
 	}
 }
 

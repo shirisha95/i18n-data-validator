@@ -1,7 +1,7 @@
 import * as monaco from "@peterschussheim/monaco-editor";
 import React, { Component } from "react";
 
-import type { Marker } from "../../models/flow/Marker";
+import Marker from "../../models/flow/Marker";
 import classes from "./Editor.css";
 import classnames from "classnames";
 
@@ -24,15 +24,16 @@ const defaultOptions = {
 type Props = {
 	value: String,
 	readOnly: boolean,
-	errors: List<Marker>
+	markers: List<Marker>
 };
 
 class Editor extends Component<Props> {
 	componentDidMount() {
-		const { value, readOnly, errors } = this.props;
+		const { value, readOnly, markers } = this.props;
+
 		const options = { ...defaultOptions, value, readOnly };
 		const editor = monaco.editor.create(this.ref, options);
-		monaco.editor.setModelMarkers(editor.getModel(), "test", errors);
+		monaco.editor.setModelMarkers(editor.getModel(), "test", markers);
 		return editor;
 	}
 
