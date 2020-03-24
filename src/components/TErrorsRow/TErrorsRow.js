@@ -1,7 +1,7 @@
 import React from "react";
 
 import classnames from "classnames";
-import MonacoEditor from "../../container/MonacoEditor/MonacoEditor2";
+import MonacoEditor from "../../container/MonacoEditor/MonacoEditor";
 import classes from "./TErrorsRow.css";
 
 const TErrors = props => {
