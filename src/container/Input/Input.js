@@ -16,12 +16,12 @@ type Props = {
 };
 
 type State = {
-	value: ?string,
+	value: string,
 	touched: boolean
 };
 
 class Input extends Component<Props, State> {
-	state: State = { value: null, touched: false };
+	state: State = { value: "", touched: false };
 	onChange = (event: SyntheticEvent<*>) => {
 		const value = event.target.value;
 		this.setState({ value, touched: true });

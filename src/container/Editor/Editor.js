@@ -35,7 +35,11 @@ class Editor extends Component<Props> {
 		const { value, readOnly, markers } = this.props;
 		const options = { ...defaultOptions, value, readOnly };
 		this.editor = monaco.editor.create(this.editorRef, options);
-		monaco.editor.setModelMarkers(this._editor.getModel(), "test", markers);
+		monaco.editor.setModelMarkers(
+			this.editor.getModel(),
+			"i18n-validator",
+			markers
+		);
 		return this.editor;
 	}
 

@@ -11,24 +11,30 @@ import classes from "./StringUploadForm.css";
 import { validateTString } from "../../store/actions/TStringsValidator";
 
 type Props = {
-	validateTString: Function
+	validateTString: Function,
+	reset: boolean
 };
 
 type State = {
 	tKey: string,
 	translatedValue: string,
-	baseValue: string
+	baseValue: string,
+	validate: {
+		required: boolean
+	}
+};
+
+const initialState: State = {
+	tKey: "",
+	translatedValue: "",
+	baseValue: "",
+	validate: {
+		required: false
+	}
 };
 
 class StringUploadForm extends Component<Props, State> {
-	state: State = {
-		tKey: "",
-		translatedValue: "",
-		baseValue: "",
-		validate: {
-			required: false
-		}
-	};
+	state = initialState;
 
 	onTKeyChange = (tKey: string) => {
 		this.setState({ tKey });
