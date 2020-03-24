@@ -1,3 +1,4 @@
+//@flow
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import { createSelector } from "reselect";
@@ -15,8 +16,7 @@ type State = {
 
 class TStringsValidator extends PureComponent<Props, State> {
 	props: Props;
-	state: State;
-	state = {
+	state: State = {
 		translatedValue: null,
 		baseValue: null
 	};

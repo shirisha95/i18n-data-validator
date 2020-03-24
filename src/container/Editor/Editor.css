@@ -1,11 +1,7 @@
-.MonacoEditor {
+.Editor {
 	display: table-cell;
 	width: 50%;
 	border: 1px solid #dddf;
 	height: 30px;
 	text-align: left;
-}
-
-.ReadOnly {
-	color: red;
 }

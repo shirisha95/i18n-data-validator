@@ -1,7 +1,7 @@
 import React from "react";
 
 import classnames from "classnames";
-import MonacoEditor from "../../container/MonacoEditor/MonacoEditor";
+import Editor from "../../container/Editor/Editor";
 import classes from "./TErrorsRow.css";
 
 const TErrors = props => {
@@ -16,8 +16,8 @@ const TErrors = props => {
 					classes.TErrorEditor
 				)}
 			>
-				<MonacoEditor value={translatedValue} errors={markers} />
-				<MonacoEditor value={baseValue} readOnly />
+				<Editor value={translatedValue} errors={markers} />
+				<Editor value={baseValue} readOnly />
 			</div>
 		</div>
 	);

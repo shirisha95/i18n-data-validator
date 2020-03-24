@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { FixedSizeList as List } from "react-window";
 
-import TErrors from "../../components/TErrorsRow/TErrorsRow";
+import TErrorsRow from "../../components/TErrorsRow/TErrorsRow";
 
 class TErrorsTable extends Component {
 	render() {
@@ -11,7 +11,7 @@ class TErrorsTable extends Component {
 			const { translatedValue, baseValue, key, errors } = error;
 			return (
 				<div key={key} style={style}>
-					<TErrors
+					<TErrorsRow
 						translatedValue={translatedValue}
 						baseValue={baseValue}
 						errors={errors}
