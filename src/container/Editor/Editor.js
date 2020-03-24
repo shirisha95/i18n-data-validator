@@ -27,20 +27,33 @@ const defaultOptions = {
 type Props = {
 	value: String,
 	readOnly?: boolean,
-	markers?: List<Marker>
+	markers?: List<Marker>,
+	onValueChange?: Function
 };
 
 class Editor extends Component<Props> {
 	componentDidMount() {
-		const { value, readOnly, markers } = this.props;
+		const { value, readOnly, markers, onValueChange } = this.props;
 		const options = { ...defaultOptions, value, readOnly };
 		this.editor = monaco.editor.create(this.editorRef, options);
-		monaco.editor.setModelMarkers(
-			this.editor.getModel(),
-			"i18n-validator",
-			markers
-		);
+		this.setModelMarkers(markers);
+
+		const model = this.editor.getModel();
+		model.onDidChangeContent(_ => {
+			const updatedValue = this.editor.getValue();
+			onValueChange(updatedValue);
+		});
 		return this.editor;
+	}
+
+	setModelMarkers = markers => {
+		const model = this.editor.getModel();
+		monaco.editor.setModelMarkers(model, "i18n-validator", markers);
+	};
+
+	componentDidUpdate() {
+		const { markers } = this.props;
+		this.setModelMarkers(markers);
 	}
 
 	componentWillUnmount() {
