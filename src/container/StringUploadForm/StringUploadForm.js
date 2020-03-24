@@ -4,9 +4,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import _ from "lodash";
 
-import Button from "../UI/Button/Button";
-import Input from "../UI/Input/Input";
-import Label from "../UI/Label/Label";
+import Button from "../../components/UI/Button/Button";
+import Input from "../Input/Input";
+import Label from "../../components/UI/Label/Label";
 import classes from "./StringUploadForm.css";
 import { validateTString } from "../../store/actions/TStringsValidator";
 

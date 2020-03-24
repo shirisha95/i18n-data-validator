@@ -5,9 +5,9 @@ import { connect } from "react-redux";
 import { createSelector } from "reselect";
 
 import { ValidateTResponse } from "../../models/flow/ValidateTResponse";
-import StringUploadForm from "../../components/StringUploadForm/StringUploadForm";
-import TErrorsRow from "../../components/TErrorsRow/TErrorsRow";
-import Header from "../../components/UI/Header/Header";
+import StringUploadForm from "../../container/StringUploadForm/StringUploadForm";
+import TErrorsRow from "../TErrorsRow/TErrorsRow";
+import Header from "../UI/Header/Header";
 
 type Props = { response: ValidateTResponse };
 

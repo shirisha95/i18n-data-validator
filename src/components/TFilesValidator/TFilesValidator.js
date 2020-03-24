@@ -5,8 +5,8 @@ import { connect } from "react-redux";
 import { createSelector } from "reselect";
 import { List } from "immutable";
 
-import FileUploadForm from "../../components/FileUploadForm/FileUploadForm";
-import Header from "../../components/UI/Header/Header";
+import FileUploadForm from "../../container/FileUploadForm/FileUploadForm";
+import Header from "../UI/Header/Header";
 import TErrorsTable from "../TErrorsTable/TErrorsTable";
 import { ValidateTResponse } from "../../models/flow/ValidateTResponse";
 

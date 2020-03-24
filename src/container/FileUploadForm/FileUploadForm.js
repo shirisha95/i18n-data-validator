@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import DropZone from "../DropZone/DropZone";
-import Button from "../UI/Button/Button";
+import Button from "../../components/UI/Button/Button";
 import classes from "./FileUploadForm.css";
 import JSONParser from "../../utils/JSONParser";
 import { validateTStrings } from "../../store/actions/TFileValidator";

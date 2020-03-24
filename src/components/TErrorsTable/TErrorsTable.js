@@ -4,7 +4,7 @@ import React from "react";
 import { FixedSizeList } from "react-window";
 import { List } from "immutable";
 
-import TErrorsRow from "../../components/TErrorsRow/TErrorsRow";
+import TErrorsRow from "../TErrorsRow/TErrorsRow";
 import { ValidateTResponse } from "../../models/flow/ValidateTResponse";
 
 type Props = {

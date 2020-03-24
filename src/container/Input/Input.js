@@ -22,7 +22,7 @@ type State = {
 
 class Input extends Component<Props, State> {
 	state: State = { value: null, touched: false };
-	onChange = (event: SyntheticEvent<HTMLInputElement>) => {
+	onChange = (event: SyntheticEvent<*>) => {
 		const value = event.target.value;
 		this.setState({ value, touched: true });
 		return this.props.onChange(value);
