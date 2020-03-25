@@ -9,6 +9,7 @@ import Input from "../Input/Input";
 import Label from "../../components/UI/Label/Label";
 import classes from "./StringUploadForm.css";
 import { validateTString } from "../../store/actions/TStringsValidator";
+import { type LiteralValue } from "@locus-taxy/i18next-strings-utils";
 
 type Props = {
 	validateTString: Function,
@@ -18,7 +19,7 @@ type Props = {
 type State = {
 	tKey: string,
 	translatedValue: string,
-	baseValue: string,
+	baseValue: LiteralValue,
 	validate: {
 		required: boolean
 	}

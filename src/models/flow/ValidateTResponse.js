@@ -3,10 +3,11 @@ import * as Immutable from "immutable";
 import ImmutableModel from "flow-immutable-models";
 
 import type { Marker } from "./Marker";
+import { type LiteralValue } from "@locus-taxy/i18next-strings-utils";
 
 export type ValidateTResponseModelType = {
 	key: string,
-	baseValue: string,
+	baseValue: LiteralValue,
 	translatedValue: string,
 	markers: Array<Marker>
 };
@@ -43,11 +44,11 @@ export class ValidateTResponse extends ImmutableModel {
         return this.clone(this._state.set('key', key));
     }
 
-    get baseValue(): string {
+    get baseValue(): LiteralValue {
         return this._state.get('baseValue');
     }
 
-    setBaseValue(baseValue: string): this {
+    setBaseValue(baseValue: LiteralValue): this {
         return this.clone(this._state.set('baseValue', baseValue));
     }
 

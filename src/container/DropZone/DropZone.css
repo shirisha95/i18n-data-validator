@@ -36,27 +36,3 @@
 	height: auto;
 	width: auto;
 }
-
-.FilesDisplayContainer {
-	display: grid;
-	padding-left: 10px;
-	margin-block-start: 0px;
-	margin-block-end: 0px;
-}
-
-.FileName,
-.FileUploadIcon {
-	display: inline;
-	vertical-align: middle;
-	align-self: center;
-}
-
-.FileUploadIcon {
-	margin: 10px;
-	height: 16px;
-}
-
-.FileDisplayContainer {
-	width: 100%;
-	list-style: none;
-}

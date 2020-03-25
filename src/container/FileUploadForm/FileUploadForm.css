@@ -26,3 +26,8 @@
 .FileContainer + .FileContainer {
 	padding: 5%;
 }
+
+.FileDropError {
+	margin: 10px;
+	font-size: 14px;
+}

@@ -1,30 +1,26 @@
-//@flow
-
 import {
 	I18nextStrings,
 	rules,
 	validate
 } from "@locus-taxy/i18next-string-validation";
 import { forEachString } from "@locus-taxy/i18next-strings-utils";
+
 import { List } from "immutable";
 
 import { Marker } from "../models/flow/Marker";
 import { ValidateTResponse } from "../models/flow/ValidateTResponse";
 
 class ValidatorUtils {
-	static validateTString = (
-		key: string,
-		baseValue: string,
-		translatedValue: string
-	): ValidateTResponse => {
+	static validateTString = (key, baseValue, translatedValue, baseStrings) => {
+		const i18nextStrings = baseStrings && {
+			key: baseValue
+		};
 		const tErrors = validate(
 			translatedValue,
 			{
 				key: key,
 				value: translatedValue,
-				baseLngStrings: new I18nextStrings({
-					key: baseValue
-				})
+				baseLngStrings: new I18nextStrings(i18nextStrings)
 			},
 			[rules["require-ns-in-nesting-key"]]
 		);
@@ -37,10 +33,7 @@ class ValidatorUtils {
 		});
 	};
 
-	static validateTStrings = (
-		baseStrings: Object,
-		translatedStrings: Object
-	): List<ValidateTResponse> => {
+	static validateTStrings = (baseStrings, translatedStrings) => {
 		const flattenedKeyTStrings = {};
 		forEachString(translatedStrings, (key, value) => {
 			flattenedKeyTStrings[key] = value;
@@ -55,14 +48,15 @@ class ValidatorUtils {
 				translatedValue,
 				baseStrings
 			);
-			if (response.markers.size !== 0) {
-				responses = responses.push(response);
-			}
+			responses =
+				response.markers.size !== 0
+					? responses.push(response)
+					: responses;
 		});
 		return responses;
 	};
 
-	static formErrorMarkers(tErrors): List<Marker> {
+	static formErrorMarkers(tErrors) {
 		return tErrors.map(tError =>
 			Marker.fromJS({
 				startLineNumber: tError.loc.start.line,

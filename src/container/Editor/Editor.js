@@ -2,8 +2,8 @@
 
 import * as monaco from "@peterschussheim/monaco-editor";
 import classnames from "classnames";
-import { List } from "immutable";
-import React, { Component } from "react";
+import * as React from "react";
+import { type LiteralValue } from "@locus-taxy/i18next-strings-utils";
 
 import { Marker } from "../../models/flow/Marker";
 import classes from "./Editor.css";
@@ -26,13 +26,15 @@ const defaultOptions = {
 
 type Props = {
 	tKey: string,
-	value: string,
+	value: LiteralValue,
 	readOnly?: boolean,
-	markers?: List<Marker>,
+	markers?: Array<Marker>,
 	onValueChange?: Function
 };
+class Editor extends React.Component<Props> {
+	editorRef: ?React.ElementRef<any>;
+	editor: Object;
 
-class Editor extends Component<Props> {
 	componentDidMount() {
 		const { tKey, value, readOnly, markers, onValueChange } = this.props;
 		const options = { ...defaultOptions, value, readOnly };
@@ -41,13 +43,13 @@ class Editor extends Component<Props> {
 
 		const model = this.editor.getModel();
 		model.onDidChangeContent(_ => {
-			const updatedValue = this.editor.getValue();
+			const updatedValue: string = this.editor.getValue();
 			onValueChange(tKey, updatedValue);
 		});
 		return this.editor;
 	}
 
-	setModelMarkers = markers => {
+	setModelMarkers = (markers: ?Array<Marker>) => {
 		const model = this.editor.getModel();
 		monaco.editor.setModelMarkers(model, "i18n-validator", markers);
 	};
@@ -57,7 +59,7 @@ class Editor extends Component<Props> {
 		this.setModelMarkers(markers);
 	}
 
-	setEditorRef = ref => {
+	setEditorRef = (ref: React.ElementRef<any>) => {
 		this.editorRef = ref;
 	};
 

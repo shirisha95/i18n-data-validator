@@ -8,7 +8,7 @@ import classnames from "classnames";
 
 type Props = {
 	validate: {
-		required?: boolean
+		required: boolean
 	},
 	id: string,
 	type: string,

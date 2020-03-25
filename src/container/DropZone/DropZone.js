@@ -1,73 +1,41 @@
 //@flow
 
-import classnames from "classnames";
-import React, { Component } from "react";
+import React from "react";
 import ReactDropzone from "react-dropzone";
 
-import FileCheck from "../../icons/file-check.png";
 import FileUpload from "../../icons/file-upload.png";
 import classes from "./DropZone.css";
-
-type State = {
-	files: Array<File>
-};
 
 type Props = {
 	multiple: boolean,
 	text: string,
 	accept: string,
-	onDrop: Function
+	dropSuccess: Boolean,
+	onDrop: Function,
+	error: string
 };
 
-class DropZone extends Component<Props, State> {
-	state: State = {
-		files: []
-	};
-
-	onDrop = (files: Array<File>) => {
-		this.setState({
-			files: files
-		});
-		this.props.onDrop(files);
-	};
-
-	render() {
-		const { multiple, text, accept } = this.props;
-		return (
-			<div className={classes.DropZoneContainer}>
-				<ReactDropzone
-					onDrop={this.onDrop}
-					className={classes.FileDropzone}
-					multiple={multiple}
-					accept={accept}
-				>
-					<img
-						alt="File upload icon"
-						className={classes.FileIcon}
-						src={FileUpload}
-					/>
-					<div className={classes.DropContainer}>
-						<div className={classes.DropBackground}>{text}</div>
-					</div>
-				</ReactDropzone>
-				<ul className={classes.FilesDisplayContainer}>
-					{this.state.files.map(file => (
-						<li className={classes.FileDisplayContainer}>
-							<img
-								alt="File upload complete icon"
-								className={classnames(
-									classes.FileUploadIcon,
-									classes.FileIcon
-								)}
-								src={FileCheck}
-							/>
-							<div className={classes.FileName}>{file.name}</div>
-						</li>
-					))}
-				</ul>
-			</div>
-		);
-	}
-}
+const DropZone = (props: Props) => {
+	const { multiple, text, accept, onDrop } = props;
+	return (
+		<div className={classes.DropZoneContainer}>
+			<ReactDropzone
+				onDrop={onDrop}
+				className={classes.FileDropzone}
+				multiple={multiple}
+				accept={accept}
+			>
+				<img
+					alt="File upload icon"
+					className={classes.FileIcon}
+					src={FileUpload}
+				/>
+				<div className={classes.DropContainer}>
+					<div className={classes.DropBackground}>{text}</div>
+				</div>
+			</ReactDropzone>
+		</div>
+	);
+};
 
 export default DropZone;
