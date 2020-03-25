@@ -3,12 +3,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import DropZone from "../DropZone/DropZone";
+import FileDropzone from "../../components/UI/FileDropzone/FileDropzone";
 import Button from "../../components/UI/Button/Button";
 import classes from "./FileUploadForm.css";
 import JSONParser from "../../utils/JSONParser";
 import { validateTStrings } from "../../store/actions/TFileValidator";
-import FilesDisplayContainer from "../DropZone/FilesDisplayContainer/FilesDisplayContainer";
 
 type Props = {
 	validateTStrings: Function
@@ -72,43 +71,25 @@ class FileUploadForm extends Component<Props, State> {
 		const { baseFileDetails, translatedFileDetails } = this.state;
 		const translatedStringsJSON = translatedFileDetails.parsedJSON;
 		const baseStringsJSON = baseFileDetails.parsedJSON;
-
+		console.log(acceptedFileFormats);
 		return (
 			<div className={classes.FileUploadForm}>
 				<div className={classes.FilesContainer}>
 					<div className={classes.FileContainer}>
-						<DropZone
+						<FileDropzone
 							onDrop={this.onTranslatedFileDrop}
-							multiple={false}
 							text="Add Translations File"
 							accept={acceptedFileFormats}
+							fileDetails={translatedFileDetails}
 						/>
-						{translatedStringsJSON ? (
-							<FilesDisplayContainer
-								fileNames={[translatedFileDetails.name]}
-							/>
-						) : (
-							<div className={classes.FileDropError}>
-								{translatedFileDetails.error}
-							</div>
-						)}
 					</div>
 					<div className={classes.FileContainer}>
-						<DropZone
+						<FileDropzone
 							onDrop={this.onBaseFileDrop}
-							multiple={false}
 							text="Add Base File"
 							accept={acceptedFileFormats}
+							fileDetails={baseFileDetails}
 						/>
-						{baseStringsJSON ? (
-							<FilesDisplayContainer
-								fileNames={[baseFileDetails.name]}
-							/>
-						) : (
-							<div className={classes.FileDropError}>
-								{baseFileDetails.error}
-							</div>
-						)}
 					</div>
 				</div>
 				{translatedStringsJSON && baseStringsJSON && (

@@ -3,19 +3,17 @@
 import React from "react";
 import ReactDropzone from "react-dropzone";
 
-import FileUpload from "../../icons/file-upload.png";
-import classes from "./DropZone.css";
+import FileUpload from "../../../../icons/file-upload.png";
+import classes from "./Dropzone.css";
 
 type Props = {
 	multiple: boolean,
 	text: string,
 	accept: string,
-	dropSuccess: Boolean,
-	onDrop: Function,
-	error: string
+	onDrop: Function
 };
 
-const DropZone = (props: Props) => {
+const Dropzone = (props: Props) => {
 	const { multiple, text, accept, onDrop } = props;
 	return (
 		<div className={classes.DropZoneContainer}>
@@ -38,4 +36,4 @@ const DropZone = (props: Props) => {
 	);
 };
 
-export default DropZone;
+export default Dropzone;

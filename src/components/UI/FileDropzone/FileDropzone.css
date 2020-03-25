@@ -1,8 +1,6 @@
-.FilesDisplayContainer {
-	display: grid;
-	padding-left: 10px;
-	margin-block-start: 0px;
-	margin-block-end: 0px;
+.FileIcon {
+	height: 30px;
+	margin: 20px;
 }
 
 .FileName,
@@ -22,5 +20,7 @@
 	list-style: none;
 }
 
-.ErrorsDiv {
+.FileDropError {
+	margin: 10px;
+	font-size: 14px;
 }
