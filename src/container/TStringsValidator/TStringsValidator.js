@@ -4,11 +4,11 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { createSelector } from "reselect";
 
+import TErrorsRow from "../../components/TErrorsRow/TErrorsRow";
+import Header from "../../components/UI/Header/Header";
 import { ValidateTResponse } from "../../models/flow/ValidateTResponse";
-import StringUploadForm from "../../container/StringUploadForm/StringUploadForm";
-import TErrorsRow from "../TErrorsRow/TErrorsRow";
-import Header from "../UI/Header/Header";
 import { validateTString } from "../../store/actions/TStringsValidator";
+import StringUploadForm from "../StringUploadForm/StringUploadForm";
 
 type Props = { response: ValidateTResponse, validateTString: Function };
 
@@ -21,7 +21,6 @@ class TStringsValidator extends Component<Props> {
 
 	render() {
 		const { response } = this.props;
-		//ToDo: Add NoErrors Div
 		return (
 			<div>
 				<Header title="Translations Validator" />

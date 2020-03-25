@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import TFileValidator from "./components/TFileValidator/TFileValidator";
-import TStringsValidator from "./components/TStringsValidator/TStringsValidator";
+import TFileValidator from "./container/TFileValidator/TFileValidator";
+import TStringsValidator from "./container/TStringsValidator/TStringsValidator";
+
 import "./App.css";
 
 class App extends Component {

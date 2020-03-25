@@ -1,6 +1,6 @@
-import { List } from "immutable";
 //@flow
 
+import { List } from "immutable";
 import React from "react";
 import { FixedSizeList } from "react-window";
 
